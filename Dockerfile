@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Build the Angular app
-RUN npm run build --prod
+# RUN npm run build --prod
 
 # Expose the port on which the app will run
 EXPOSE 5000
