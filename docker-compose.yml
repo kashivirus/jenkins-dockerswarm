@@ -1,0 +1,23 @@
+redis:
+  image: redis:latest
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /etc/timezone:/etc/timezone:ro
+  ports:
+    - 6379:6379
+
+onetimesecret:
+  image: chrisipa/onetimesecret:latest
+  links:
+    - redis:redis
+  environment:
+    - OTS_SITE_HOST=localhost:7143
+    - OTS_SITE_PORT=7143
+    - OTS_SITE_DOMAIN=localhost
+    - OTS_SITE_SECRET=my-super-secret-encryption-string
+    - OTS_REDIS_URI=redis://redis:6379/0?timeout=10&thread_safe=false&logging=false
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /etc/timezone:/etc/timezone:ro
+  ports:
+    - 7143:7143
